@@ -6,6 +6,13 @@ import java.sql.Timestamp;
 @entity
 public class Bin {
     private long id ;
-    private string idetnifier;
-    private string locationdescription
+    private String idetnifier ;
+    private String locationDescription ;
+    private double latitude ;
+    private double longtitude;
+    private Zone zone ;
+    private double cpaacityLiters ;
+    private Boolean active ; 
+    private Timestamp createdAt ;
+    private Timestamp updatedAt ;
 }
