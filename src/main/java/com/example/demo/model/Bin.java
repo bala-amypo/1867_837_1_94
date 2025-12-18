@@ -33,5 +33,21 @@ public class Bin {
     {
         return id ;
     }
-    public 
+    public String getIdentifier()
+    {
+        return identifier ;
+    }
+    public void setIdentifier( String identifier)
+    {
+        this.identifier = identifier ;
+    }
+     public String getLoactionDescription()
+    {
+        return locationDescription ;
+    }
+    public void setIdentifier( String identifier)
+    {
+        this.identifier = identifier ;
+    }
+    
 
