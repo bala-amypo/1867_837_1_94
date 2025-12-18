@@ -6,12 +6,12 @@ import java.sql.Timestamp;
 @entity
 public class Bin {
     private long id ;
-    private String idetnifier ;
+    private String identifier ;
     private String locationDescription ;
     private double latitude ;
     private double longtitude;
     private Zone zone ;
-    private double cpaacityLiters ;
+    private double capacityLiters ;
     private Boolean active ; 
     private Timestamp createdAt ;
     private Timestamp updatedAt ;
@@ -25,6 +25,13 @@ public class Bin {
         this.longtitude = longtitude;
         this.zone = zone;
         this.capacityLiters = capacityLiters;
-        this.active = active ;
-        this
+        this.active = active;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
+    public Long getId()
+    {
+        return id ;
+    }
+    public 
+
