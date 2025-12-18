@@ -15,4 +15,7 @@ public class Bin {
     private Boolean active ; 
     private Timestamp createdAt ;
     private Timestamp updatedAt ;
-}
+
+    public Bin( String Identifier , String locationDescription , Double latitude , Double longtitude ,
+                Zone zone , Double capacityLiters , Boolean active , Timestamp createdAt , Timestamp updatedAt)
+                
