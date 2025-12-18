@@ -59,10 +59,49 @@ public class Bin {
     }
       public double getLongtitude()
     {
-        return latitude ;
+        return longtitude ;
     }
-    public void setLatitude( Double latitude )
+    public void setLatitude( Double longtitude )
     {
-        this.latitude = latitude ;
+        this.longtitude = longtitude  ;
+    }
+        public Zone getZone() {
+        return zone;
     }
 
+    public void setZone(Zone zone) {
+        this.zone = zone;
+    }
+
+    public Double getCapacityLiters() {
+        return capacityLiters;
+    }
+
+    public void setCapacityLiters(Double capacityLiters) {
+        this.capacityLiters = capacityLiters;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+}
