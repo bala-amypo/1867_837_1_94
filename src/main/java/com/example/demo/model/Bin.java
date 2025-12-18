@@ -45,9 +45,24 @@ public class Bin {
     {
         return locationDescription ;
     }
-    public void setIdentifier( String identifier)
+    public void setLocationDescription( String locationDescription)
     {
-        this.identifier = identifier ;
+        this.locationDescription = locationDescription ;
     }
-    
+    public double getLatitude()
+    {
+        return latitude ;
+    }
+    public void setLatitude( Double latitude )
+    {
+        this.latitude = latitude ;
+    }
+      public double getLongtitude()
+    {
+        return latitude ;
+    }
+    public void setLatitude( Double latitude )
+    {
+        this.latitude = latitude ;
+    }
 
