@@ -18,4 +18,13 @@ public class Bin {
 
     public Bin( String Identifier , String locationDescription , Double latitude , Double longtitude ,
                 Zone zone , Double capacityLiters , Boolean active , Timestamp createdAt , Timestamp updatedAt)
-                
+    {
+        this.identifier = identifier;    
+        this.locationDescription = locationdescription;
+        this.latitude = latitude;
+        this.longtitude = longtitude;
+        this.zone = zone;
+        this.capacityLiters = capacityLiters;
+        this.active = active ;
+        this
+    }
