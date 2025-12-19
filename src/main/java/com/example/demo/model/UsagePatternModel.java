@@ -2,30 +2,50 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
-@Table(name = "usage_pattern_models")
+@Table(
+    name = "usage_pattern_models",
+    indexes = {
+        @Index(name = "idx_usage_pattern_bin", columnList = "bin_id"),
+        @Index(name = "idx_usage_pattern_last_updated", columnList = "last_updated")
+    }
+)
 public class UsagePatternModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /*
+     * Many models can exist per bin over time
+     * Only the latest is used for prediction (service rule)
+     */
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "bin_id", nullable = false)
     private Bin bin;
 
-    @Column(name = "avg_daily_increase_weekday")
+    @Column(name = "avg_daily_increase_weekday", nullable = false)
     private Double avgDailyIncreaseWeekday;
 
-    @Column(name = "avg_daily_increase_weekend")
+    @Column(name = "avg_daily_increase_weekend", nullable = false)
     private Double avgDailyIncreaseWeekend;
 
-    @Column(name = "last_updated")
+    @Column(name = "last_updated", nullable = false)
     private Timestamp lastUpdated;
 
+    /*
+     * Logical one-to-many
+     * Ownership is on OverflowPrediction.modelUsed
+     */
+    @OneToMany(mappedBy = "modelUsed")
+    private List<OverflowPrediction> overflowPredictions;
+
+    // ---------- Constructors ----------
+
     public UsagePatternModel() {
-       
+        // required by JPA
     }
 
     public UsagePatternModel(
@@ -39,6 +59,22 @@ public class UsagePatternModel {
         this.avgDailyIncreaseWeekend = avgDailyIncreaseWeekend;
         this.lastUpdated = lastUpdated;
     }
+
+    // ---------- Lifecycle hooks ----------
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.lastUpdated == null) {
+            this.lastUpdated = new Timestamp(System.currentTimeMillis());
+        }
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.lastUpdated = new Timestamp(System.currentTimeMillis());
+    }
+
+    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
@@ -70,9 +106,5 @@ public class UsagePatternModel {
 
     public Timestamp getLastUpdated() {
         return lastUpdated;
-    }
-
-    public void setLastUpdated(Timestamp lastUpdated) {
-        this.lastUpdated = lastUpdated;
     }
 }
