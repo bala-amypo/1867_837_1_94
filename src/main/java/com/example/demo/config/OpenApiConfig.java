@@ -52,6 +52,6 @@ public OpenAPI customOpenAPI() {
     }
 
     return openAPI;
-}
+};
 
 }
