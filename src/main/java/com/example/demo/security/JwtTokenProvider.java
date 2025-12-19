@@ -48,4 +48,9 @@ public class JwtTokenProvider {
                 .build()
                 .parseClaimsJws(token);
     }
+
+    public String getEmailFromToken(String token) {
+    return parseClaims(token).getSubject();
+    }
+
 }
