@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.FillLevelRecord;
+import com.example.demo.model.FillLevelRecord;
 
 import java.util.List;
 
