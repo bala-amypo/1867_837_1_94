@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.Bin;
-import com.example.demo.entity.FillLevelRecord;
+import com.example.demo.model.Bin;
+import com.example.demo.model.FillLevelRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.sql.Timestamp;
