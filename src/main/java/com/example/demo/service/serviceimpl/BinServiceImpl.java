@@ -50,7 +50,6 @@ public class BinServiceImpl implements BinService {
         existing.setLatitude(updated.getLatitude());
         existing.setLongitude(updated.getLongitude());
         existing.setCapacityLiters(updated.getCapacityLiters());
-        existing.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 
         return binRepository.save(existing);
     }
