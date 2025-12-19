@@ -1,7 +1,12 @@
-if (userRepository.existsByEmail(email)) {
-    throw new BadRequestException("Email already registered");
-}
+package com.example.demo.service;
 
-if (role == null) {
-    throw new BadRequestException("Role is required");
+import com.example.demo.entity.User;
+
+public interface UserService {
+
+    User registerUser(String fullName, String email, String password);
+
+    User getByEmail(String email);
+
+    boolean exists(String email);
 }
