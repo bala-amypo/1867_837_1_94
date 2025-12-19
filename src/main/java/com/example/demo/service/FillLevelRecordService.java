@@ -1,11 +1,17 @@
-if (fillPercentage < 0 || fillPercentage > 100) {
-    throw new BadRequestException("fillPercentage must be between 0 and 100");
+package com.example.demo.service;
+
+import com.example.demo.entity.FillLevelRecord;
+
+import java.util.List;
+
+public interface FillLevelRecordService {
+
+    FillLevelRecord createRecord(FillLevelRecord record);
+
+    FillLevelRecord getRecordById(Long id);
+
+    List<FillLevelRecord> getRecordsForBin(Long binId);
+
+    List<FillLevelRecord> getRecentRecords(Long binId, int limit);
 }
 
-if (recordedAt.after(new Timestamp(System.currentTimeMillis()))) {
-    throw new BadRequestException("recordedAt cannot be in the future");
-}
-
-if (!bin.getActive()) {
-    throw new BadRequestException("Bin must be active");
-}

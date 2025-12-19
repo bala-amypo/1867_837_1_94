@@ -1,17 +1,16 @@
-if (daysUntilFull < 0) {
-    throw new BadRequestException("daysUntilFull must be >= 0");
+package com.example.demo.service;
+
+import com.example.demo.entity.OverflowPrediction;
+
+import java.util.List;
+
+public interface OverflowPredictionService {
+
+    OverflowPrediction generatePrediction(Long binId);
+
+    OverflowPrediction getPredictionById(Long id);
+
+    List<OverflowPrediction> getPredictionsForBin(Long binId);
+
+    List<OverflowPrediction> getLatestPredictionsForZone(Long zoneId);
 }
-
-if (predictedFullDate.before(LocalDate.now())) {
-    throw new BadRequestException("predictedFullDate must be today or later");
-}
-
-
-
-OverflowPrediction prediction = new OverflowPrediction(
-    bin,
-    predictedDate,
-    daysUntilFull,
-    latestUsagePattern,
-    new Timestamp(System.currentTimeMillis())
-);

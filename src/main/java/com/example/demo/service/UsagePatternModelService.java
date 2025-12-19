@@ -1,8 +1,17 @@
-if (weekday < 0 || weekend < 0) {
-    throw new BadRequestException("Average daily increase must be >= 0");
+package com.example.demo.service;
+
+import com.example.demo.entity.UsagePatternModel;
+
+import java.util.List;
+
+public interface UsagePatternModelService {
+
+    UsagePatternModel createModel(UsagePatternModel model);
+
+    UsagePatternModel updateModel(Long id, UsagePatternModel model);
+
+    UsagePatternModel getModelForBin(Long binId);
+
+    List<UsagePatternModel> getAllModels();
 }
 
-
-
-usagePatternRepository
-    .findTopByBinOrderByLastUpdatedDesc(bin);
