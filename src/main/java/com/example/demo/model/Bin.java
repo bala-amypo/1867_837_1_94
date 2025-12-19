@@ -2,9 +2,15 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
-@Table(name = "bins")
+@Table(
+    name = "bins",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "identifier")
+    }
+)
 public class Bin {
 
     @Id
@@ -21,23 +27,38 @@ public class Bin {
 
     private Double longitude;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zone_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "zone_id", nullable = false)
     private Zone zone;
 
-    @Column(name = "capacity_liters")
+    @Column(name = "capacity_liters", nullable = false)
     private Double capacityLiters;
 
+    @Column(nullable = false)
     private Boolean active;
 
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "created_at", updatable = false, nullable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private Timestamp updatedAt;
 
+    /*
+     * Logical relationships
+     * Bin is NOT the owner, so mappedBy is used
+     * No cascade, no fetch = EAGER (intentional)
+     */
+
+    @OneToMany(mappedBy = "bin")
+    private List<FillLevelRecord> fillLevelRecords;
+
+    @OneToMany(mappedBy = "bin")
+    private List<OverflowPrediction> overflowPredictions;
+
+    // ---------- Constructors ----------
+
     public Bin() {
-        // required by JPA
+        // JPA
     }
 
     public Bin(
@@ -62,6 +83,26 @@ public class Bin {
         this.updatedAt = updatedAt;
     }
 
+    // ---------- Lifecycle hooks ----------
+
+    @PrePersist
+    protected void onCreate() {
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        this.createdAt = now;
+        this.updatedAt = now;
+
+        // SPEC: active defaults to true
+        if (this.active == null) {
+            this.active = true;
+        }
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
@@ -127,15 +168,7 @@ public class Bin {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public Timestamp getUpdatedAt() {
         return updatedAt;
-    }
-
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }
