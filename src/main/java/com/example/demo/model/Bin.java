@@ -1,71 +1,105 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 
-@entity
+@Entity
+@Table(name = "bins")
 public class Bin {
-    private long id ;
-    private String identifier ;
-    private String locationDescription ;
-    private double latitude ;
-    private double longtitude;
-    private Zone zone ;
-    private double capacityLiters ;
-    private Boolean active ; 
-    private Timestamp createdAt ;
-    private Timestamp updatedAt ;
 
-    public Bin( String Identifier , String locationDescription , Double latitude , Double longtitude ,
-                Zone zone , Double capacityLiters , Boolean active , Timestamp createdAt , Timestamp updatedAt)
-    {
-        this.identifier = identifier;    
-        this.locationDescription = locationdescription;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String identifier;
+
+    @Column(name = "location_description")
+    private String locationDescription;
+
+    private Double latitude;
+
+    private Double longitude;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "zone_id")
+    private Zone zone;
+
+    @Column(name = "capacity_liters")
+    private Double capacityLiters;
+
+    private Boolean active;
+
+    @Column(name = "created_at", updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
+
+    public Bin() {
+        // required by JPA
+    }
+
+    public Bin(
+            String identifier,
+            String locationDescription,
+            Double latitude,
+            Double longitude,
+            Zone zone,
+            Double capacityLiters,
+            Boolean active,
+            Timestamp createdAt,
+            Timestamp updatedAt
+    ) {
+        this.identifier = identifier;
+        this.locationDescription = locationDescription;
         this.latitude = latitude;
-        this.longtitude = longtitude;
+        this.longitude = longitude;
         this.zone = zone;
         this.capacityLiters = capacityLiters;
         this.active = active;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-    public Long getId()
-    {
-        return id ;
+
+
+    public Long getId() {
+        return id;
     }
-    public String getIdentifier()
-    {
-        return identifier ;
+
+    public String getIdentifier() {
+        return identifier;
     }
-    public void setIdentifier( String identifier)
-    {
-        this.identifier = identifier ;
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
-     public String getLoactionDescription()
-    {
-        return locationDescription ;
+
+    public String getLocationDescription() {
+        return locationDescription;
     }
-    public void setLocationDescription( String locationDescription)
-    {
-        this.locationDescription = locationDescription ;
+
+    public void setLocationDescription(String locationDescription) {
+        this.locationDescription = locationDescription;
     }
-    public double getLatitude()
-    {
-        return latitude ;
+
+    public Double getLatitude() {
+        return latitude;
     }
-    public void setLatitude( Double latitude )
-    {
-        this.latitude = latitude ;
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
-      public double getLongtitude()
-    {
-        return longtitude ;
+
+    public Double getLongitude() {
+        return longitude;
     }
-    public void setLatitude( Double longtitude )
-    {
-        this.longtitude = longtitude  ;
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
-        public Zone getZone() {
+
+    public Zone getZone() {
         return zone;
     }
 

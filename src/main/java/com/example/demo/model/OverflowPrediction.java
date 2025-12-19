@@ -1,0 +1,94 @@
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
+
+@Entity
+@Table(name = "overflow_predictions")
+public class OverflowPrediction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "bin_id", nullable = false)
+    private Bin bin;
+
+    @Column(name = "predicted_full_date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date predictedFullDate;
+
+    @Column(name = "days_until_full")
+    private Integer daysUntilFull;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "model_used_id")
+    private UsagePatternModel modelUsed;
+
+    @Column(name = "generated_at", nullable = false)
+    private Timestamp generatedAt;
+
+    public OverflowPrediction() {
+        
+    }
+
+    public OverflowPrediction(
+            Bin bin,
+            Date predictedFullDate,
+            Integer daysUntilFull,
+            UsagePatternModel modelUsed,
+            Timestamp generatedAt
+    ) {
+        this.bin = bin;
+        this.predictedFullDate = predictedFullDate;
+        this.daysUntilFull = daysUntilFull;
+        this.modelUsed = modelUsed;
+        this.generatedAt = generatedAt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Bin getBin() {
+        return bin;
+    }
+
+    public void setBin(Bin bin) {
+        this.bin = bin;
+    }
+
+    public Date getPredictedFullDate() {
+        return predictedFullDate;
+    }
+
+    public void setPredictedFullDate(Date predictedFullDate) {
+        this.predictedFullDate = predictedFullDate;
+    }
+
+    public Integer getDaysUntilFull() {
+        return daysUntilFull;
+    }
+
+    public void setDaysUntilFull(Integer daysUntilFull) {
+        this.daysUntilFull = daysUntilFull;
+    }
+
+    public UsagePatternModel getModelUsed() {
+        return modelUsed;
+    }
+
+    public void setModelUsed(UsagePatternModel modelUsed) {
+        this.modelUsed = modelUsed;
+    }
+
+    public Timestamp getGeneratedAt() {
+        return generatedAt;
+    }
+
+    public void setGeneratedAt(Timestamp generatedAt) {
+        this.generatedAt = generatedAt;
+    }
+}

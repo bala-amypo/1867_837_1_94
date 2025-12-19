@@ -1,94 +1,68 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
-@Table(name = "overflow_predictions")
-public class OverflowPrediction {
+@Table(
+    name = "zones",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "zone_name")
+    }
+)
+public class Zone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "bin_id", nullable = false)
-    private Bin bin;
+    @Column(name = "zone_name", nullable = false, unique = true)
+    private String zoneName;
 
-    @Column(name = "predicted_full_date", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date predictedFullDate;
+    @Column
+    private String description;
 
-    @Column(name = "days_until_full")
-    private Integer daysUntilFull;
+    @Column
+    private Boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "model_used_id")
-    private UsagePatternModel modelUsed;
+    // ---------- Constructors ----------
 
-    @Column(name = "generated_at", nullable = false)
-    private Timestamp generatedAt;
-
-    public OverflowPrediction() {
-        
+    public Zone() {
+        // required by JPA
     }
 
-    public OverflowPrediction(
-            Bin bin,
-            Date predictedFullDate,
-            Integer daysUntilFull,
-            UsagePatternModel modelUsed,
-            Timestamp generatedAt
-    ) {
-        this.bin = bin;
-        this.predictedFullDate = predictedFullDate;
-        this.daysUntilFull = daysUntilFull;
-        this.modelUsed = modelUsed;
-        this.generatedAt = generatedAt;
+    public Zone(String zoneName, String description, Boolean active) {
+        this.zoneName = zoneName;
+        this.description = description;
+        this.active = active;
     }
+
+    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
     }
 
-    public Bin getBin() {
-        return bin;
+    public String getZoneName() {
+        return zoneName;
     }
 
-    public void setBin(Bin bin) {
-        this.bin = bin;
+    public void setZoneName(String zoneName) {
+        this.zoneName = zoneName;
     }
 
-    public Date getPredictedFullDate() {
-        return predictedFullDate;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPredictedFullDate(Date predictedFullDate) {
-        this.predictedFullDate = predictedFullDate;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Integer getDaysUntilFull() {
-        return daysUntilFull;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setDaysUntilFull(Integer daysUntilFull) {
-        this.daysUntilFull = daysUntilFull;
-    }
-
-    public UsagePatternModel getModelUsed() {
-        return modelUsed;
-    }
-
-    public void setModelUsed(UsagePatternModel modelUsed) {
-        this.modelUsed = modelUsed;
-    }
-
-    public Timestamp getGeneratedAt() {
-        return generatedAt;
-    }
-
-    public void setGeneratedAt(Timestamp generatedAt) {
-        this.generatedAt = generatedAt;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

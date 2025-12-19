@@ -24,8 +24,6 @@ public class FillLevelRecord {
     @Column(name = "is_weekend")
     private Boolean isWeekend;
 
-    // ---------- Constructors ----------
-
     public FillLevelRecord() {
         // required by JPA
     }
@@ -41,8 +39,6 @@ public class FillLevelRecord {
         this.recordedAt = recordedAt;
         this.isWeekend = isWeekend;
     }
-
-    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
