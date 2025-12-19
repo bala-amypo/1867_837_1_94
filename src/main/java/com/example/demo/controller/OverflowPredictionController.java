@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.OverflowPrediction;
+import com.example.demo.model.OverflowPrediction;
 import com.example.demo.service.OverflowPredictionService;
 import org.springframework.web.bind.annotation.*;
 

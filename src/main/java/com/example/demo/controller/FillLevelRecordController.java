@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.FillLevelRecord;
+import com.example.demo.model.FillLevelRecord;
 import com.example.demo.service.FillLevelRecordService;
 import org.springframework.web.bind.annotation.*;
 

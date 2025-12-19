@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.UsagePatternModel;
+import com.example.demo.model.UsagePatternModel;
 import com.example.demo.service.UsagePatternModelService;
 import org.springframework.web.bind.annotation.*;
 
