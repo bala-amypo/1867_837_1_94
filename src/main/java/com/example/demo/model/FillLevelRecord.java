@@ -4,13 +4,32 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "fill_level_records")
 public class FillLevelRecord {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "bin_id", nullable = false)
     private Bin bin;
+
+    @Column(name = "fill_percentage", nullable = false)
     private Double fillPercentage;
+
+    @Column(name = "recorded_at", nullable = false)
     private Timestamp recordedAt;
+
+    @Column(name = "is_weekend")
     private Boolean isWeekend;
-    
+
+    // ---------- Constructors ----------
+
+    public FillLevelRecord() {
+        // required by JPA
+    }
+
     public FillLevelRecord(
             Bin bin,
             Double fillPercentage,
@@ -22,7 +41,10 @@ public class FillLevelRecord {
         this.recordedAt = recordedAt;
         this.isWeekend = isWeekend;
     }
-  public Long getId() {
+
+    // ---------- Getters & Setters ----------
+
+    public Long getId() {
         return id;
     }
 
