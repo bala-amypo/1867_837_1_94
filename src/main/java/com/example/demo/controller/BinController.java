@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Bin;
+import com.example.demo.model.Bin;
 import com.example.demo.service.BinService;
 import org.springframework.web.bind.annotation.*;
 
