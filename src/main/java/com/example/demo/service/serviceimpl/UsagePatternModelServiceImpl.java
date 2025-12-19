@@ -46,7 +46,7 @@ public class UsagePatternModelServiceImpl implements UsagePatternModelService {
 
         existing.setAvgDailyIncreaseWeekday(updated.getAvgDailyIncreaseWeekday());
         existing.setAvgDailyIncreaseWeekend(updated.getAvgDailyIncreaseWeekend());
-        existing.setLastUpdated(new Timestamp(System.currentTimeMillis()));
+   
 
         return modelRepository.save(existing);
     }
