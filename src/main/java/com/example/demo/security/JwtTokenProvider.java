@@ -50,7 +50,7 @@ public class JwtTokenProvider {
     }
 
     public String getEmailFromToken(String token) {
-        return parseClaims(token).getbody().getSubject();
+        return parseClaims(token).getBody().getSubject();
     }
 
 }
