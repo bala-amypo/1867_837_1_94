@@ -70,7 +70,6 @@ public class BinServiceImpl implements BinService {
     public void deactivateBin(Long id) {
         Bin bin = getBinById(id);
         bin.setActive(false);
-        bin.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         binRepository.save(bin);
     }
 }

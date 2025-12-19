@@ -35,8 +35,7 @@ public class UsagePatternModelServiceImpl implements UsagePatternModelService {
         Bin bin = binRepository.findById(model.getBin().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
 
-        model.setBin(bin);
-        model.setLastUpdated(new Timestamp(System.currentTimeMillis()));
+        model.setBin(bin);  
         return modelRepository.save(model);
     }
 
