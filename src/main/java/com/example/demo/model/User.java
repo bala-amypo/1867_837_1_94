@@ -4,65 +4,74 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(
-    name = "zones",
+    name = "users",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = "zone_name")
+        @UniqueConstraint(columnNames = "email")
     }
 )
-public class Zone {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "zone_name", nullable = false, unique = true)
-    private String zoneName;
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
 
-    @Column
-    private String description;
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    @Column
-    private Boolean active;
+    @Column(nullable = false)
+    private String password;
 
-    // ---------- Constructors ----------
+    @Column(nullable = false)
+    private String role;
 
-    public Zone() {
-        // required by JPA
+    public User() {
+        
     }
 
-    public Zone(String zoneName, String description, Boolean active) {
-        this.zoneName = zoneName;
-        this.description = description;
-        this.active = active;
+    public User(String fullName, String email, String password, String role) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
-    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
     }
 
-    public String getZoneName() {
-        return zoneName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setZoneName(String zoneName) {
-        this.zoneName = zoneName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Boolean getActive() {
-        return active;
+    public String getPassword() {
+        return password;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
