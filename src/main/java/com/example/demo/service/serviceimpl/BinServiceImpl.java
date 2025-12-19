@@ -38,8 +38,6 @@ public class BinServiceImpl implements BinService {
 
         bin.setZone(zone);
         bin.setActive(true);
-        bin.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        bin.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 
         return binRepository.save(bin);
     }
