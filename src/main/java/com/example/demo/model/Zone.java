@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(
@@ -21,11 +22,21 @@ public class Zone {
     @Column
     private String description;
 
-    @Column
+    @Column(nullable = false)
     private Boolean active;
 
+    /*
+     * Logical one-to-many:
+     * One zone can have many bins.
+     * Ownership is on Bin.zone
+     */
+    @OneToMany(mappedBy = "zone")
+    private List<Bin> bins;
+
+    // ---------- Constructors ----------
+
     public Zone() {
-        
+        // required by JPA
     }
 
     public Zone(String zoneName, String description, Boolean active) {
@@ -34,6 +45,20 @@ public class Zone {
         this.active = active;
     }
 
+    // ---------- Lifecycle hooks ----------
+
+    @PrePersist
+    protected void onCreate() {
+        /*
+         * Spec:
+         * active defaults to true on creation
+         */
+        if (this.active == null) {
+            this.active = true;
+        }
+    }
+
+    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
@@ -61,5 +86,9 @@ public class Zone {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public List<Bin> getBins() {
+        return bins;
     }
 }
