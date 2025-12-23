@@ -20,7 +20,7 @@ public class OpenApiConfig {
 
         if (serverUrl != null && !serverUrl.isBlank()) {
             openAPI.setServers(
-                List.of(new Server().url(serverUrl))
+                List.of(new Server().url("https://9194.408procr.amypo.ai/"))
             );
         }
 
