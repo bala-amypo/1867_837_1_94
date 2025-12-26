@@ -18,7 +18,8 @@ public class JwtTokenProvider {
     public String generateToken(String email) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + validityInMs);
-
+        
+        return generateTokenFromEmail(email);
         return Jwts.builder()
                 .setSubject(email)
                 .setIssuedAt(now)
