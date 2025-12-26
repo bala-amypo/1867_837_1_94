@@ -1,5 +1,7 @@
 package com.example.demo.config;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.*;
 import org.springframework.context.annotation.Bean;
