@@ -12,7 +12,7 @@ public interface FillLevelRecordRepository extends JpaRepository<FillLevelRecord
 
     List<FillLevelRecord> findByBinOrderByRecordedAtDesc(Bin bin);
 
-    Optional<FillLevelRecord> findTopByBinOrderByRecordedAtDesc(Bin bin);
+    Optional<FillLevelRecord> findTop1ByBinOrderByRecordedAtDesc(Bin bin);
 
     List<FillLevelRecord> findByBinAndRecordedAtBetween(
             Bin bin,
