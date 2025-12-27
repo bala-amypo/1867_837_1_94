@@ -1,43 +1,20 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "overflow_predictions")
 public class OverflowPrediction {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "bin_id")
     private Bin bin;
+    private LocalDateTime predictedAt;
+    private LocalDateTime overflowTime;
 
-    @Column(nullable = false)
-    private LocalDate predictedFullDate;
-
-    @Column(nullable = false)
-    private Integer daysUntilFull;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "model_id")
-    private UsagePatternModel modelUsed;
-
-    @Column(nullable = false)
-    private LocalDateTime generatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        this.generatedAt = LocalDateTime.now();
+    public OverflowPrediction() {
     }
 
-    // ===== Getters & Setters =====
-
-    public Long getId() {
-        return id;
+    public OverflowPrediction(Bin bin, LocalDateTime predictedAt, LocalDateTime overflowTime) {
+        this.bin = bin;
+        this.predictedAt = predictedAt;
+        this.overflowTime = overflowTime;
     }
 
     public Bin getBin() {
@@ -48,31 +25,19 @@ public class OverflowPrediction {
         this.bin = bin;
     }
 
-    public LocalDate getPredictedFullDate() {
-        return predictedFullDate;
+    public LocalDateTime getPredictedAt() {
+        return predictedAt;
     }
 
-    public void setPredictedFullDate(LocalDate predictedFullDate) {
-        this.predictedFullDate = predictedFullDate;
+    public void setPredictedAt(LocalDateTime predictedAt) {
+        this.predictedAt = predictedAt;
     }
 
-    public Integer getDaysUntilFull() {
-        return daysUntilFull;
+    public LocalDateTime getOverflowTime() {
+        return overflowTime;
     }
 
-    public void setDaysUntilFull(Integer daysUntilFull) {
-        this.daysUntilFull = daysUntilFull;
-    }
-
-    public UsagePatternModel getModelUsed() {
-        return modelUsed;
-    }
-
-    public void setModelUsed(UsagePatternModel modelUsed) {
-        this.modelUsed = modelUsed;
-    }
-
-    public LocalDateTime getGeneratedAt() {
-        return generatedAt;
+    public void setOverflowTime(LocalDateTime overflowTime) {
+        this.overflowTime = overflowTime;
     }
 }

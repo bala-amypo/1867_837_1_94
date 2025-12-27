@@ -1,33 +1,30 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "fill_level_records")
 public class FillLevelRecord {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "bin_id")
     private Bin bin;
-
-    @Column(nullable = false)
-    private Double fillPercentage;
-
-    @Column(nullable = false)
+    private double fillLevel;
     private LocalDateTime recordedAt;
 
-    @Column(nullable = false)
-    private Boolean isWeekend;
+    public FillLevelRecord() {
+    }
 
-    // ===== Getters & Setters =====
+    public FillLevelRecord(Long id, Bin bin, double fillLevel, LocalDateTime recordedAt) {
+        this.id = id;
+        this.bin = bin;
+        this.fillLevel = fillLevel;
+        this.recordedAt = recordedAt;
+    }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Bin getBin() {
@@ -38,12 +35,12 @@ public class FillLevelRecord {
         this.bin = bin;
     }
 
-    public Double getFillPercentage() {
-        return fillPercentage;
+    public double getFillLevel() {
+        return fillLevel;
     }
 
-    public void setFillPercentage(Double fillPercentage) {
-        this.fillPercentage = fillPercentage;
+    public void setFillLevel(double fillLevel) {
+        this.fillLevel = fillLevel;
     }
 
     public LocalDateTime getRecordedAt() {
@@ -52,13 +49,5 @@ public class FillLevelRecord {
 
     public void setRecordedAt(LocalDateTime recordedAt) {
         this.recordedAt = recordedAt;
-    }
-
-    public Boolean getIsWeekend() {
-        return isWeekend;
-    }
-
-    public void setIsWeekend(Boolean isWeekend) {
-        this.isWeekend = isWeekend;
     }
 }
