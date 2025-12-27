@@ -10,14 +10,20 @@ import java.util.List;
 @Service
 public class UsagePatternModelServiceImpl implements UsagePatternModelService {
 
-    private final UsagePatternModelRepository modelRepository;
+    private final UsagePatternModelRepository repository;
 
-    public UsagePatternModelServiceImpl(UsagePatternModelRepository modelRepository) {
-        this.modelRepository = modelRepository;
+    public UsagePatternModelServiceImpl(UsagePatternModelRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public List<UsagePatternModel> getAllModels() {
-        return modelRepository.findAll();
+        return repository.findAll();
+    }
+
+    @Override
+    public UsagePatternModel getModelForBin(Long binId) {
+        return repository.findTopByBinIdOrderByLastUpdatedDesc(binId)
+                .orElse(null);
     }
 }
