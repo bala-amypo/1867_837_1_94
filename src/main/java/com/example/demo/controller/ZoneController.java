@@ -1,0 +1,44 @@
+package com.example.demo.controller;
+
+import com.example.demo.model.Zone;
+import com.example.demo.service.impl.ZoneServiceImpl;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/zones")
+public class ZoneController {
+
+    private final ZoneServiceImpl zoneService;
+
+    public ZoneController(ZoneServiceImpl zoneService) {
+        this.zoneService = zoneService;
+    }
+
+    [cite_start]@PostMapping // [cite: 448]
+    public ResponseEntity<Zone> createZone(@RequestBody Zone zone) {
+        return ResponseEntity.ok(zoneService.createZone(zone));
+    }
+
+    [cite_start]@PutMapping("/{id}") // [cite: 449]
+    public ResponseEntity<Zone> updateZone(@PathVariable Long id, @RequestBody Zone zone) {
+        return ResponseEntity.ok(zoneService.updateZone(id, zone));
+    }
+
+    [cite_start]@GetMapping("/{id}") // [cite: 450]
+    public ResponseEntity<Zone> getZoneById(@PathVariable Long id) {
+        return ResponseEntity.ok(zoneService.getZoneById(id));
+    }
+
+    [cite_start]@GetMapping // [cite: 451]
+    public ResponseEntity<List<Zone>> getAllZones() {
+        return ResponseEntity.ok(zoneService.getAllZones()); // Added helper method in service if missing
+    }
+
+    [cite_start]@PutMapping("/{id}/deactivate") // [cite: 452]
+    public ResponseEntity<Void> deactivateZone(@PathVariable Long id) {
+        zoneService.deactivateZone(id);
+        return ResponseEntity.ok().build();
+    }
+}
