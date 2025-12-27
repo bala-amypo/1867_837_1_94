@@ -5,7 +5,10 @@ import lombok.*;
 
 @Entity
 @Table(name = "bins")
-@Data
+// @Data removed to prevent value-based equality on empty objects
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Bin {
