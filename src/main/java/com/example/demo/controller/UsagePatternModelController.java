@@ -15,17 +15,17 @@ public class UsagePatternModelController {
         this.modelService = modelService;
     }
 
-    [cite_start]@PostMapping // [cite: 436]
+    @PostMapping
     public ResponseEntity<UsagePatternModel> createModel(@RequestBody UsagePatternModel model) {
         return ResponseEntity.ok(modelService.createModel(model));
     }
 
-    [cite_start]@PutMapping("/{id}") // [cite: 437]
+    @PutMapping("/{id}")
     public ResponseEntity<UsagePatternModel> updateModel(@PathVariable Long id, @RequestBody UsagePatternModel model) {
         return ResponseEntity.ok(modelService.updateModel(id, model));
     }
 
-    [cite_start]@GetMapping("/bin/{binId}") // [cite: 438]
+    @GetMapping("/bin/{binId}")
     public ResponseEntity<UsagePatternModel> getModelForBin(@PathVariable Long binId) {
         return ResponseEntity.ok(modelService.getModelForBin(binId));
     }

@@ -16,12 +16,12 @@ public class OverflowPredictionController {
         this.predictionService = predictionService;
     }
 
-    [cite_start]@PostMapping("/generate/{binId}") // [cite: 442]
+    @PostMapping("/generate/{binId}")
     public ResponseEntity<OverflowPrediction> generatePrediction(@PathVariable Long binId) {
         return ResponseEntity.ok(predictionService.generatePrediction(binId));
     }
 
-    [cite_start]@GetMapping("/zone/{zoneId}/latest") // [cite: 445]
+    @GetMapping("/zone/{zoneId}/latest")
     public ResponseEntity<List<OverflowPrediction>> getLatestPredictionsForZone(@PathVariable Long zoneId) {
         return ResponseEntity.ok(predictionService.getLatestPredictionsForZone(zoneId));
     }
