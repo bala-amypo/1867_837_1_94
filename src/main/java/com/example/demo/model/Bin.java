@@ -5,7 +5,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "bins")
-// @Data removed to prevent value-based equality on empty objects
+// REMOVED @Data to fix the equality test failure
 @Getter
 @Setter
 @ToString
