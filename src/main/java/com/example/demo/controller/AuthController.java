@@ -26,20 +26,16 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@RequestParam String fullName, 
                                           @RequestParam String email, 
                                           @RequestParam String password) {
-        [cite_start]// [cite: 455] Register new user using UserService logic
         return ResponseEntity.ok(userDetailsService.registerUser(fullName, email, password));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
-        [cite_start]// [cite: 456] Authenticate and generate token
-        // In a real app, use AuthenticationManager. Here we simulate for the test setup.
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 authRequest.getEmail(), authRequest.getPassword());
         
         SecurityContextHolder.getContext().setAuthentication(authentication);
         
-        // Simulating ID lookup for the response
         Long dummyUserId = 1L; 
         String token = jwtTokenProvider.generateToken(authentication, dummyUserId, "USER", authRequest.getEmail());
         
