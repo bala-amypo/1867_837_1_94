@@ -1,10 +1,11 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.Bin;
 import com.example.demo.model.UsagePatternModel;
 import com.example.demo.repository.UsagePatternModelRepository;
 import com.example.demo.service.UsagePatternModelService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UsagePatternModelServiceImpl implements UsagePatternModelService {
@@ -16,9 +17,7 @@ public class UsagePatternModelServiceImpl implements UsagePatternModelService {
     }
 
     @Override
-    public UsagePatternModel getLatestModel(Bin bin) {
-        return modelRepository
-                .findTop1ByBinOrderByLastUpdatedDesc(bin)
-                .orElse(null);
+    public List<UsagePatternModel> getAllModels() {
+        return modelRepository.findAll();
     }
 }
