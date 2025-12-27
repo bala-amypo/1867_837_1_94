@@ -6,6 +6,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -14,29 +19,42 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // 1. Disable CSRF (Cross-Site Request Forgery) as this is an API
+            // 1. Enable CORS (Fixes 'Failed to fetch' in Swagger)
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            
+            // 2. Disable CSRF
             .csrf(AbstractHttpConfigurer::disable)
             
-            // 2. Configure endpoint permissions
+            // 3. Configure endpoint permissions
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/v3/api-docs/**",       // Allow OpenAPI docs
-                    "/swagger-ui/**",        // Allow Swagger UI
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**",
                     "/swagger-ui.html",
-                    "/auth/**",              // Allow login/register endpoints
-                    "/error",                // Allow default error page
-                    "/api/**"                // TEMPORARY: Allow all API access for easy testing
+                    "/auth/**",
+                    "/error",
+                    "/api/**"
                 ).permitAll()
-                // .anyRequest().authenticated() // Uncomment this later to secure other endpoints
-                .anyRequest().permitAll()        // Currently permits everything to stop the login page
+                .anyRequest().permitAll()
             )
             
-            // 3. DISABLE the default login form
+            // 4. Disable login forms
             .formLogin(AbstractHttpConfigurer::disable)
-            
-            // 4. Disable HTTP Basic Auth popup
             .httpBasic(AbstractHttpConfigurer::disable);
 
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        // Allow all origins (Fixes CORS issues in cloud IDEs)
+        configuration.setAllowedOrigins(List.of("*")); 
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
